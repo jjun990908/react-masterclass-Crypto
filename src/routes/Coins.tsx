@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -62,7 +63,7 @@ interface ICoin {
 }
 
 function Coins() {
-  const {isLoading, data} =useQuery<ICoin[]>("allCoins",fetchCoins)
+  const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   // const [loading, setLoading] = useState(true);
   // const [coins, setCoins] = useState<ICoin[]>([]);
   // useEffect(() => {
@@ -75,6 +76,11 @@ function Coins() {
   // }, []);
   return (
     <Container>
+      <Helmet>
+        <title>
+          코인
+        </title>
+      </Helmet>
       <Header>
         <Title>코인</Title>
       </Header>
@@ -82,7 +88,7 @@ function Coins() {
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {data?.slice(0,100).map((coin) => (
+          {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state={coin}>
                 <Img
